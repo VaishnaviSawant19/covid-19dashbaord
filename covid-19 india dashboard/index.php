@@ -1,0 +1,8 @@
+<?php
+
+
+includeone("index.html");
+
+
+
+?>
