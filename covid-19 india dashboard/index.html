@@ -1,0 +1,341 @@
+<html>
+<head>
+    <title>
+             COVID-19 India Dashboard
+    </title>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
+     <script src="C:\Users\VAISHNAVI\OneDrive\Desktop\covid-19 india dashboard\static\js\modules\moment.min.js"></script>
+    <link rel="stylesheet" href="C:\Users\VAISHNAVI\OneDrive\Desktop\covid-19 india dashboard\static\css\w3schools.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="C:\Users\VAISHNAVI\OneDrive\Desktop\covid-19 india dashboard\static\css\style.css">
+    <script src="C:\Users\VAISHNAVI\OneDrive\Desktop\covid-19 india dashboard\static\js\jquery.min.js"></script>
+    <script src="C:\Users\VAISHNAVI\OneDrive\Desktop\covid-19 india dashboard\static\js\canvasjs.min.js"></script>
+		
+
+    <link rel="stylesheet" type="text/css" href="C:\Users\VAISHNAVI\OneDrive\Desktop\covid-19 india dashboard\static\js\modules\datatables.min.css"/>
+	  <script type="text/javascript" src="C:\Users\VAISHNAVI\OneDrive\Desktop\covid-19 india dashboard\static\js\datatables.min.js"></script>
+
+    <script src="C:\Users\VAISHNAVI\OneDrive\Desktop\covid-19 india dashboard\static\js\modules\highmaps.js"></script>
+    <script src="C:\Users\VAISHNAVI\OneDrive\Desktop\covid-19 india dashboard\static\js\modules\exporting.js"></script>
+    <script src="C:\Users\VAISHNAVI\OneDrive\Desktop\covid-19 india dashboard\static\js\modules\in-all-disputed.js"></script>
+
+    <script src="C:\Users\VAISHNAVI\OneDrive\Desktop\covid-19 india dashboard\static\js\onLoad.js"></script>
+
+
+
+</head>
+<body onload="myFunction()">
+<div>
+    <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
+        <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+        <a href="#" class="w3-bar-item w3-button" onclick="window.location.href='index.html';">Live Dashboard</a>
+        <a href="#" class="w3-bar-item w3-button" onclick="window.location.href='analysislanding.html';">Gender and Age Analysis</a>
+        <a href="#" class="w3-bar-item w3-button" onclick="window.location.href='stateAnalysisLanding.html';">Geographical Analysis</a>
+        <a href="#" class="w3-bar-item w3-button" onclick="window.location.href='metroAnalysisLanding.html';">Metro Cities</a>
+          <a href="#" class="w3-bar-item w3-button" onclick="window.location.href='arimamodel.html';">ARIMA Prediction</a>
+           
+           <br>
+           <br>
+           <br>
+           <br>
+           <br>
+          
+        </div>
+        </div>
+      <div>
+          <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
+      </div>
+      <center><h1><span id="websiteHeader">COVID-19 India Dashboard</span></h1></center>
+      
+      <marquee><span id="slidingMarquee">Wear Mask outdoors! Stop Spread! Stay Home! Stay Safe!</span></marquee>
+      
+      <div>
+				<div class="col-sm" style="margin-top: 30px; font-family: 'Karla', sans-serif;text-align: center;">
+			   <button onclick="window.location.href ='https://economictimes.indiatimes.com/topic/fake-news';">COVID-19 Fake News</button>
+					<button onclick="window.location.href ='https://news.google.com/topics/CAAqBwgKMMqAmAsw9KmvAw?oc=3&ceid=IN:en';">Latest COVID-19 News</button>
+				</div>
+      </div>
+        <br>
+
+      <div class="row">
+      
+        <div class="column">
+          <div class="card">
+              <h2>Confirmed Cases </h2>
+              <span id="totalConfirmedCases"> </span>
+              <h2>Confirmed Today </h2>
+              <span id="confirmedToday"> </span>
+              <h2>Active Cases </h2>
+              <span id="activeCases"> </span>
+              <h5> <span id="lastUpdatedLive1"></span> </h5>
+      
+          </div>
+        </div>
+      
+        <div class="column">
+          <div class="card">
+              <h2>Recovered </h2>
+              <span id="totalRecovered"> </span>
+              <h2>Recovered Today </h2>
+              <span id="recoveredToday"> </span>
+              <h2>Recovery Rate</h2>
+              <span id="recoveryRate"> </span>
+              <h5> <span id="lastUpdatedLive3"></span> </h5>
+          </div>
+      
+        </div>
+          <div class="column">
+          <div class="card">
+              <h2>Deaths </h2>
+              <span id="totalDeaths"> </span>
+              <h2>Deaths Today </h2>
+              <span id="deathsToday"> </span>
+              <h2>Mortality Rate</h2>
+              <span id="mortalityRate"> </span>
+              <h5> <span id="lastUpdatedLive2"></span> </h5>
+          </div>
+      
+        </div>
+          <div class="column">
+          <div class="card">
+              <h2>Total Tests</h2>
+              <span id="totalTestsDone"> </span>
+              <h2>Tests Done Today</h2>
+              <span id="testDoneToday"> </span>
+              <h2>Tests / 1M pop</h2>
+              <span id="testspermillion"> </span>
+             <h5> <span id="lastUpdated"></span> </h5>
+          </div>
+        </div>
+      </div>
+      
+
+      <div>
+      <div class="statesrow">
+          <div class="statescolumn" >
+          <h1><span class="subTitles">State-wise COVID-19 distribution</span></h1>
+      <div id="statesTable" class="statesTable" >
+          <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+              <thead>
+              <tr>
+              <th class="th-sm">State/Union Territory
+      
+                </th>
+            <th class="th-sm">Confirmed
+      
+            </th>
+            <th class="th-sm">Deaths
+      
+            </th>
+            <th class="th-sm">Recovered
+      
+            </th>
+            <th class="th-sm">Active Cases
+      
+            </th>
+                  <th class="th-sm">Mortality Rate %
+      
+            </th>
+          </tr>
+          </thead>
+          <tbody id ="transactOrder">
+      
+          </tbody>
+          <tfoot class="tfoot">
+          <tr>
+            <th>State/Union Territory
+            </th>
+            <th>Confirmed
+            </th>
+            <th>Deaths
+            </th>
+            <th>Recovered
+            </th>
+            <th>Active Cases
+            </th>
+               <th>Mortality Rate %
+            </th>
+          </tr>
+          </tfoot>
+          </table>
+      </div>
+          </div>
+      
+           <div class="statescolumn" >
+              <h1><span class="subTitles">State-wise COVID-19 distribution</span></h1>
+               <button class="button" id="buttonRecovered" onClick="showRecoveriesOnMap()">Recovered</button>
+               <button class="button button3" id="buttonConfirmed"  onClick="showConfirmedOnMap()">Confirmed</button>
+                <button class="button button4" id="buttonDeaths" onClick="showDeathsOnMap()">Deaths</button>
+               <button class="button button2" id="buttonActive" onClick="showActiveOnMap()">Active</button>
+               <div id="container"></div>
+           </div>
+      </div>
+      
+      </div>
+      <br>
+      <div class="graphrow">
+          <div class="graphcolumn" >
+              <select class="select-css" id="selectDays">
+                  <option value="0">Beginning</option>
+                  <option value="15">Last 15 days</option>
+                  <option value="30">Last 30 days</option>
+               </select>
+               <br>
+              <select class="select-css" id="selectType">
+                  <option value="Linear">Linear</option>
+                  <option value="Logarithmic">Logarithmic</option>
+      
+               </select>
+              <br>
+      
+                  <select class="select-css" id="selectState">
+                  <option value="All States">All States</option>
+                      <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                       <option value="Andhra Pradesh">Chhattisgarh</option>
+                        <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                        <option value="Delhi">Delhi</option>
+                       <option value="Goa">Goa</option>
+                       <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                      <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Ladakh">Ladakh</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                       <option value="Manipur">Manipur</option>
+                      <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                      <option value="Odisha">Odisha</option>
+                      <option value="Puducherry">Puducherry</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                       <option value="Sikkim">Sikkim</option>
+                      <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                       <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="West Bengal">West Bengal</option>
+      
+      
+              </select>
+              <br>
+          <div id="chartContainer" style="height: 250px; width: 100%;"></div>
+              <button class="button" onClick="splineRecovered()">Recovered</button>
+      
+               <button class="button button3"  onClick="splineConfirmed()">Confirmed</button>
+      
+                <button class="button button4" onClick="splineDeaths()">Deaths</button>
+      
+               <button class="button button2" onClick="splineActive()">Active</button>
+      
+      
+              </div>
+           <div class="graphcolumn" >
+               <br>
+                   <br>
+              <br>
+               <br>
+               <select class="select-css" id="selectStateTest" onChange="selectStateTesting()">
+                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Andhra Pradesh">Chhattisgarh</option>
+                        <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Ladakh">Ladakh</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Puducherry">Puducherry</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="West Bengal">West Bengal</option>
+      
+              </select>
+               <br>
+               <br>
+               <br>
+                <div id="chartContainer1" style="height: 250px; width: 100%;"></div>
+      
+           </div>
+      
+      </div>
+      <br>
+      <br>
+      <br>
+      
+      
+      <div class="footer">
+        <p>&#169;Developed by Vaishnavi Sawant</p>
+          <p>
+        Credits - COVID-19 India Org Data Operations Group for the updated APIs.
+              </p>
+      </div>
+      <!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	//
+</script></body>
+</html>
