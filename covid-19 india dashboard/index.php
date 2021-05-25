@@ -1,8 +1,0 @@
-<?php
-
-
-includeone("../index.html");
-
-
-
-?>
