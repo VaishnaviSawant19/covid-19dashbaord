@@ -1,7 +1,7 @@
 <?php
 
 
-includeone("index.html");
+includeone("../index.html");
 
 
 
